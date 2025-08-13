@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful CSE Student Registration</title>
+    <style>
+        /* Define a vibrant and professional color palette */
+        :root {
+            --primary-blue: #2196F3; /* A bright, welcoming blue */
+            --primary-dark-blue: #1976D2; /* Darker blue for accents/hover */
+            --accent-green: #4CAF50; /* A fresh, lively green for success/buttons */
+            --accent-green-dark: #388E3C; /* Darker green for button hover */
+            --accent-orange: #FF9800; /* A warm orange for highlights */
+            --text-dark: #333333; /* Standard dark text */
+            --text-medium: #555555; /* Slightly lighter text for labels */
+            --bg-light-blue: #E3F2FD; /* Very light blue for page background */
+            --bg-white: #FFFFFF; /* Pure white for form background */
+            --border-light: #BBDEFB; /* Light blue border */
+            --border-medium: #90CAF9; /* Medium blue border for focus/emphasis */
+            --error-red: #F44336; /* Bright red for errors and reset button */
+            --shadow-color: rgba(0, 0, 0, 0.18); /* A bit more prominent shadow */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-light-blue); /* Page background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark); /* Default text color */
+        }
+        form {
+            background-color: var(--bg-white);
+            padding: 40px; /* Increased padding */
+            border-radius: 15px; /* Slightly more rounded */
+            box-shadow: 0 8px 25px var(--shadow-color); /* More vibrant shadow */
+            max-width: 700px; /* Slightly increased max-width */
+            width: 100%;
+            border: 2px solid var(--border-light); /* Slightly thicker border */
+            box-sizing: border-box;
+            position: relative; /* For potential background gradients or patterns */
+            overflow: hidden; /* Ensures background elements stay within bounds */
+        }
+
+        /* Subtle background pattern/gradient for the form */
+        form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(var(--primary-blue), 0.05) 0%, rgba(var(--accent-green), 0.02) 100%);
+            z-index: 0;
+            border-radius: 15px;
+        }
+
+        form > * {
+            position: relative; /* Ensures form content is above the pseudo-element background */
+            z-index: 1;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-dark-blue); /* Darker blue for the heading */
+            margin-bottom: 30px; /* Increased margin */
+            border-bottom: 3px solid var(--primary-blue); /* More prominent border */
+            padding-bottom: 15px; /* Increased padding */
+            font-size: 2.2em; /* Larger heading */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08); /* Subtle text shadow */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px; /* Increased margin */
+            font-weight: 700; /* Bolder labels */
+            color: var(--text-medium); /* Dark grey for labels */
+            font-size: 1.05em; /* Slightly larger label text */
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 18px; /* More padding */
+            margin-bottom: 22px; /* Increased margin */
+            border: 2px solid var(--border-light); /* Slightly thicker border */
+            border-radius: 8px; /* More rounded inputs */
+            box-sizing: border-box;
+            font-size: 17px; /* Larger font size in inputs */
+            color: var(--text-dark);
+            background-color: #F8FCFF; /* Very subtle light blue background for inputs */
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus,
+        input[type="tel"]:focus,
+        input[type="url"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary-blue); /* Primary blue on focus */
+            box-shadow: 0 0 10px rgba(var(--primary-blue), 0.4); /* Stronger, colored shadow */
+            background-color: var(--bg-white); /* White background on focus */
+            outline: none;
+        }
+
+        /* Custom Radio and Checkbox Styling */
+        input[type="radio"],
+        input[type="checkbox"] {
+            /* Hide default radio/checkbox */
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            cursor: pointer;
+        }
+
+        input[type="radio"] + label,
+        input[type="checkbox"] + label {
+            display: inline-block; /* Keep them next to the input */
+            margin-left: 10px; /* More space */
+            margin-right: 25px; /* More space between options */
+            color: var(--text-medium);
+            font-weight: normal;
+            position: relative;
+            padding-left: 30px; /* Space for custom indicator */
+            cursor: pointer;
+            user-select: none; /* Prevent text selection */
+        }
+
+        /* Custom radio button appearance */
+        input[type="radio"] + label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            background: var(--bg-white);
+            transition: all 0.2s ease;
+        }
+        input[type="radio"]:checked + label::before {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        input[type="radio"]:checked + label::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 9px;
+            width: 6px;
+            height: 6px;
+            background: var(--bg-white);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: radioCheck 0.2s forwards;
+        }
+
+        /* Custom checkbox appearance */
+        input[type="checkbox"] + label::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 4px;
+            background: var(--bg-white);
+            transition: all 0.2s ease;
+        }
+        input[type="checkbox"]:checked + label::before {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        input[type="checkbox"]:checked + label::after {
+            content: '\2713'; /* Checkmark symbol */
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            font-size: 16px;
+            color: var(--bg-white);
+            font-weight: bold;
+            transform: scale(0);
+            animation: checkboxCheck 0.2s forwards;
+        }
+
+        /* Keyframe animations for check/radio */
+        @keyframes radioCheck {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes checkboxCheck {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+
+        .form-group {
+            margin-bottom: 25px; /* Increased margin between groups */
+        }
+        .form-group.inline-group label {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+        .form-group.inline-group div {
+            margin-top: 10px; /* More space below the main label for inline options */
+        }
+
+        button {
+            background-color: var(--accent-green); /* Green for submit */
+            color: white;
+            padding: 15px 30px; /* Larger padding */
+            border: none;
+            border-radius: 8px; /* More rounded buttons */
+            cursor: pointer;
+            font-size: 18px; /* Larger font size */
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-right: 20px; /* More space between buttons */
+            box-shadow: 0 4px 10px rgba(var(--accent-green), 0.2); /* Button specific shadow */
+        }
+        button[type="reset"] {
+            background-color: var(--error-red); /* Red for reset */
+            box-shadow: 0 4px 10px rgba(var(--error-red), 0.2);
+        }
+        button:hover {
+            background-color: var(--accent-green-dark); /* Darker green on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0 6px 15px rgba(var(--accent-green-dark), 0.3);
+        }
+        button[type="reset"]:hover {
+            background-color: #C62828; /* Darker red on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(#C62828, 0.3);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px; /* Ensure a minimum height */
+        }
+        .error-message {
+            color: var(--error-red); /* Red color for error messages */
+            font-size: 0.95em;
+            margin-top: -15px; /* Pull it closer to the input */
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        a {
+            color: var(--primary-blue); /* Links in primary blue */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: var(--primary-dark-blue);
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <form action="/register-cse-student" method="POST">
+        <h2>CSE Student Registration</h2>
+
+        <div class="form-group">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" placeholder="e.g., Jane Doe" required minlength="3" maxlength="100">
+        </div>
+
+        <div class="form-group">
+            <label for="email">University Email:</label>
+            <input type="email" id="email" name="email" placeholder="e.g., your.name@university.edu" required pattern="[a-z0-9._%+-]+@university\.edu$" title="Please use your official university email (e.g., example@university.edu)">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Min 8 chars, 1 uppercase, 1 number, 1 symbol" required minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&()_+}{&quot;:;'?/&gt;.<,])(?!.*\s).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least one special character, and at least 8 or more characters">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required minlength="8">
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+        </div>
+
+        <div class="form-group inline-group">
+            <label>Gender:</label>
+            <div>
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+                <input type="radio" id="otherGender" name="gender" value="other">
+                <label for="otherGender">Prefer not to say</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="tel" id="contactNumber" name="contactNumber" placeholder="e.g., +91 9876543210" pattern="^\+?[0-9]{10,15}$" title="Phone number (e.g., +91 9876543210)">
+        </div>
+
+        <div class="form-group">
+            <label for="prnNumber">Your PRN Number:</label>
+            <input type="number" id="prnNumber" name="prnNumber" placeholder="e.g., 1234567890" required title="Enter your PRN number">
+            </div>
+
+        <div class="form-group">
+            <label for="yearOfStudy">Year of Study:</label>
+            <select id="yearOfStudy" name="yearOfStudy" required>
+                <option value="">-- Select Year --</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+                <option value="5th">5th Year (Integrated/Dual Degree)</option>
+                <option value="postgrad">Postgraduate</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Areas of Interest/Specialization:</label>
+            <div class="inline-group">
+                <input type="checkbox" id="aiMl" name="interests" value="AI/ML">
+                <label for="aiMl">AI/Machine Learning</label>
+                <input type="checkbox" id="webDev" name="interests" value="Web Development">
+                <label for="webDev">Web Development</label>
+                <input type="checkbox" id="mobileDev" name="interests" value="Mobile Development">
+                <label for="mobileDev">Mobile Development</label>
+                <input type="checkbox" id="dataScience" name="interests" value="Data Science">
+                <label for="dataScience">Data Science</label>
+                <input type="checkbox" id="cyberSec" name="interests" value="Cyber Security">
+                <label for="cyberSec">Cyber Security</label>
+                <input type="checkbox" id="cloudComp" name="interests" value="Cloud Computing">
+                <label for="cloudComp">Cloud Computing</label>
+                <input type="checkbox" id="gameDev" name="interests" value="Game Development">
+                <label for="gameDev">Game Development</label>
+                <input type="checkbox" id="blockchain" name="interests" value="Blockchain">
+                <label for="blockchain">Blockchain</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="linkedinUrl">LinkedIn Profile URL (Optional):</label>
+            <input type="url" id="linkedinUrl" name="linkedinUrl" placeholder="e.g., https://linkedin.com/in/yourprofile">
+        </div>
+
+        <div class="form-group">
+            <label for="bio">Brief Bio / Statement of Purpose (Max 500 characters):</label>
+            <textarea id="bio" name="bio" rows="6" maxlength="500" placeholder="tell us about your achievements..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" id="terms" name="terms" value="agreed" required>
+            <label for="terms">I agree to the <a href="#" style="color: var(--primary-blue); text-decoration: none;">Terms and Conditions</a></label>
+        </div>
+
+        <button type="submit">Register</button>
+        <button type="reset">Reset Form</button>
+    </form>
+
+    <script>
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+
+        function validatePassword(){
+            if(password.value != confirmPassword.value) {
+                confirmPassword.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirmPassword.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirmPassword.onkeyup = validatePassword;
+    </script>
+
+</body>
+</html>
